@@ -37,8 +37,8 @@
 
         .progress-bar {
             width: 100%;
-            max-width: 400px;
-            height: 8px;
+            max-width: 600px;
+            height: 10px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 4px;
             margin-top: 20px;
@@ -52,6 +52,14 @@
             border-radius: 4px;
             transition: width 0.1s;
         }
+
+        .material-icons-outlined.md-36 {
+            font-size: 36px;
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
     </style>
 </head>
 
@@ -60,9 +68,9 @@
         <h1>TEST & TEST</h1>
         <h2>Test</h2>
         <div class="controls">
-            <span class="material-icons-outlined" id="play">play_circle_filled</span>
-            <span class="material-icons-outlined" id="pause">pause_circle</span>
-            <span class="material-icons-outlined" id="download" onclick="downloadFile()">file_download</span>
+            <span class="material-icons-outlined md-36" id="play">play_circle_filled</span>
+            <span class="material-icons-outlined md-36" id="pause">pause_circle</span>
+            <span class="material-icons-outlined md-36" id="download" onclick="downloadFile()">file_download</span>
         </div>
         <div class="progress-bar" id="progressBar">
             <div class="progress" id="progress"></div>
