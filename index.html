@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio E&A</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <style>
+        body {
+            background: rgb(20, 17, 79);
+            background: linear-gradient(300deg, rgba(20, 17, 79, 1) 15%, rgba(0, 0, 0, 1) 100%);
+            color: white;
+            font-family: "Lexend", sans-serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 400px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .progress {
+            height: 100%;
+            background: #fff;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.1s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>TEST & TEST</h1>
+        <h2>Test</h2>
+        <div class="controls">
+            <span class="material-icons-outlined" id="play">play_circle_filled</span>
+            <span class="material-icons-outlined" id="pause">pause_circle</span>
+            <span class="material-icons-outlined" id="download" onclick="downloadFile()">file_download</span>
+        </div>
+        <div class="progress-bar" id="progressBar">
+            <div class="progress" id="progress"></div>
+        </div>
+    </div>
+
+    <audio id="audio" src="Esther_Aviel_Radio.mp3"></audio>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const playButton = document.getElementById('play');
+        const pauseButton = document.getElementById('pause');
+        const progressBar = document.getElementById('progressBar');
+        const progress = document.getElementById('progress');
+
+        playButton.addEventListener('click', () => {
+            audio.play();
+        });
+
+        pauseButton.addEventListener('click', () => {
+            audio.pause();
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const progressWidth = (audio.currentTime / audio.duration) * 100;
+            progress.style.width = progressWidth + '%';
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const clickPosition = (e.offsetX / progressBar.offsetWidth) * audio.duration;
+            audio.currentTime = clickPosition;
+        });
+
+        function downloadFile() {
+            var hyperlink = document.createElement('a');
+            hyperlink.href = "Esther_Aviel_Radio.mp3";
+            hyperlink.target = '_blank';
+            hyperlink.download = "Esther_Aviel_Radio.mp3";
+
+            var mouseEvent = new MouseEvent('click', {
+                view: window,
+                bubbles: true,
+                cancelable: true
+            });
+
+            hyperlink.dispatchEvent(mouseEvent);
+            (window.URL || window.webkitURL).revokeObjectURL(hyperlink.href);
+        }
+    </script>
+</body>
+
+</html>
