@@ -2,200 +2,208 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radio E&A</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <style>
-        body {
-            background: rgb(20, 17, 79);
-            background: linear-gradient(300deg, rgba(20, 17, 79, 1) 15%, rgba(0, 0, 0, 1) 100%);
-            color: white;
-            font-family: "Lexend", sans-serif;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            flex-direction: column;
-        }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Radio Esther & Aviel</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+	<style>
+		body {
+			background: rgb(20, 17, 79);
+			color: white;
+			font-family: "Lexend", sans-serif;
+			font-weight: 600;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0;
+			flex-direction: column;
+		}
 
-        h1 {
-            font-size: 5em;
-        }
+		h1 {
+			font-size: 5em;
+			margin-bottom: 0;
+		}
 
-        h2 {
-            font-size: 2.5em;
-        }
+		h2 {
+			font-size: 2.5em;
+			margin-top: 0;
+		}
 
-        .container {
-            text-align: center;
-            width: 80%;
-            max-width: 500px;
-        }
+		.container {
+			text-align: center;
+			width: 80%;
+			max-width: 500px;
+		}
 
-        .controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
+		.controls {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			margin-top: 10px;
+		}
 
-        .progress-bar {
-            width: 100%;
-            max-width: 600px;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            margin-top: 20px;
-            position: relative;
-        }
+		.progress-bar {
+			width: 100%;
+			max-width: 600px;
+			height: 10px;
+			background: rgba(255, 255, 255, 0.2);
+			border-radius: 4px;
+			margin-top: 20px;
+			position: relative;
+		}
 
-        .progress {
-            height: 100%;
-            background: #fff;
-            width: 0%;
-            border-radius: 4px;
-            transition: width 0.1s;
-        }
+		.progress {
+			height: 100%;
+			background: #fff;
+			width: 0%;
+			border-radius: 4px;
+			transition: width 0.1s;
+		}
 
-        .material-icons-outlined.md-36 {
-            font-size: 36px;
-        }
+		.material-icons-outlined.md-36 {
+			font-size: 36px;
+		}
 
-        * {
-            -webkit-user-select: none;
-            user-select: none;
-        }
+		* {
+			-webkit-user-select: none;
+			user-select: none;
+		}
 
-        .playlist {
-            margin-top: 20px;
-            list-style: none;
-            padding: 0;
-        }
+		.playlist {
+			margin-top: 20px;
+			list-style: none;
+			padding: 0;
+		}
 
-        .playlist-item {
-            cursor: pointer;
-            padding: 8px;
-            background-color: rgba(255, 255, 255, 0.1);
-            margin: 5px 0;
-            border-radius: 5px;
-            transition: background-color 0.2s;
-        }
+		.playlist-item {
+			cursor: pointer;
+			padding: 8px;
+			background-color: rgba(255, 255, 255, 0.1);
+			margin: 5px 0;
+			border-radius: 5px;
+			transition: background-color 0.2s;
+		}
 
-        .playing {
-            background-color: rgba(255, 215, 0, 0.3);
-            color: #ff0;
-            font-weight: bold;
-        }
-    </style>
+		.playing {
+			background-color: rgba(255, 215, 0, 0.3);
+			color: #ff0;
+			font-weight: bold;
+		}
+	</style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Radio</h1>
-        <h2>Esther & Aviel</h2>
-        <div class="controls">
-            <span class="material-icons-outlined md-36" id="play">play_circle_filled</span>
-            <span class="material-icons-outlined md-36" id="pause">pause_circle</span>
-            <span class="material-icons-outlined md-36" id="download" onclick="downloadFile()">file_download</span>
-        </div>
-        <div class="progress-bar" id="progressBar">
-            <div class="progress" id="progress"></div>
-        </div>
-        <ul class="playlist" id="playlist">
-            <!-- Playlist items will be added dynamically -->
-        </ul>
-    </div>
+	<div class="container">
+		<h1>Radio</h1>
+		<h2>Esther & Aviel</h2>
+		<div class="controls">
+			<span class="material-icons-outlined md-36" id="play">play_circle_filled</span>
+			<span class="material-icons-outlined md-36" id="pause">pause_circle</span>
+			<span class="material-icons-outlined md-36" id="download" onclick="downloadFile()">file_download</span>
+		</div>
+		<div class="progress-bar" id="progressBar">
+			<div class="progress" id="progress"></div>
+		</div>
+		<ul class="playlist" id="playlist">
+			<!-- Playlist items will be added dynamically -->
+		</ul>
+	</div>
 
-    <audio id="audio"></audio>
+	<audio id="audio"></audio>
 
-    <script>
-        const audio = document.getElementById('audio');
-        const playButton = document.getElementById('play');
-        const pauseButton = document.getElementById('pause');
-        const progressBar = document.getElementById('progressBar');
-        const progress = document.getElementById('progress');
-        const playlistElement = document.getElementById('playlist');
+	<script>
+		const audio = document.getElementById('audio');
+		const playButton = document.getElementById('play');
+		const pauseButton = document.getElementById('pause');
+		const progressBar = document.getElementById('progressBar');
+		const progress = document.getElementById('progress');
+		const playlistElement = document.getElementById('playlist');
 
-        const playlist = [
-            { name: "Histoire éternelle", file: "histoire_eternelle.mp3" },
-            { name: "Die alter Seat", file: "die_alter_seat.mp3" },
-            { name: "Rêves de chat", file: "reves_de_chat.mp3" },
-            { name: "Vereint, so groß", file: "vereint_so_gross.mp3" }
-        ];
+		const playlist = [
+			{ name: "C'est leur jour", file: "Cest leur jour.mp3" },
+			{ name: "Heute ist der Tag", file: "Heute ist der Tag.mp3" },
+			{ name: "Rêves de chat", file: "Rêves de chat.mp3" },
+			{ name: "Der Motor blieb kalt", file: "Der Motor blieb kalt.mp3" },
+			{ name: "Pour se réchauffer", file: "Pour se réchauffer.mp3" },
+			{ name: "Zu spät erwacht", file: "Zu spät erwacht.mp3" },
+			{ name: "Histoire éternelle", file: "Histoire éternelle.mp3" },
+			{ name: "Der alte Seat", file: "Der alte Seat.mp3" },
+			{ name: "Quelques courges", file: "Quelques courges.mp3" },
+			{ name: "Unter Druck", file: "Unter Druck.mp3" },
+			{ name: "Ostermundigen", file: "Ostermundigen.mp3" },
+			{ name: "Vereint, so groß", file: "Vereint, so groß.mp3" }
+		];
 
-        let currentTrack = 0;
+		let currentTrack = 0;
 
-        function loadTrack(trackIndex) {
-            currentTrack = trackIndex;
-            audio.src = playlist[trackIndex].file;
-            audio.load();
-            audio.play();
-            updatePlaylistDisplay();
-        }
+		function loadTrack(trackIndex) {
+			currentTrack = trackIndex;
+			audio.src = playlist[trackIndex].file;
+			audio.load();
+			audio.play();
+			updatePlaylistDisplay();
+		}
 
-        function updatePlaylistDisplay() {
-            document.querySelectorAll('.playlist-item').forEach((item, index) => {
-                item.classList.toggle('playing', index === currentTrack);
-            });
-        }
+		function updatePlaylistDisplay() {
+			document.querySelectorAll('.playlist-item').forEach((item, index) => {
+				item.classList.toggle('playing', index === currentTrack);
+			});
+		}
 
-        function downloadFile() {
-            const hyperlink = document.createElement('a');
-            hyperlink.href = playlist[currentTrack].file;
-            hyperlink.target = '_blank';
-            hyperlink.download = playlist[currentTrack].file;
+		function downloadFile() {
+			const hyperlink = document.createElement('a');
+			hyperlink.href = playlist[currentTrack].file;
+			hyperlink.target = '_blank';
+			hyperlink.download = playlist[currentTrack].file;
 
-            const mouseEvent = new MouseEvent('click', {
-                view: window,
-                bubbles: true,
-                cancelable: true
-            });
+			const mouseEvent = new MouseEvent('click', {
+				view: window,
+				bubbles: true,
+				cancelable: true
+			});
 
-            hyperlink.dispatchEvent(mouseEvent);
-            (window.URL || window.webkitURL).revokeObjectURL(hyperlink.href);
-        }
+			hyperlink.dispatchEvent(mouseEvent);
+			(window.URL || window.webkitURL).revokeObjectURL(hyperlink.href);
+		}
 
-        playButton.addEventListener('click', () => {
-            audio.play();
-        });
+		playButton.addEventListener('click', () => {
+			audio.play();
+		});
 
-        pauseButton.addEventListener('click', () => {
-            audio.pause();
-        });
+		pauseButton.addEventListener('click', () => {
+			audio.pause();
+		});
 
-        audio.addEventListener('timeupdate', () => {
-            const progressWidth = (audio.currentTime / audio.duration) * 100;
-            progress.style.width = progressWidth + '%';
-        });
+		audio.addEventListener('timeupdate', () => {
+			const progressWidth = (audio.currentTime / audio.duration) * 100;
+			progress.style.width = progressWidth + '%';
+		});
 
-        progressBar.addEventListener('click', (e) => {
-            const clickPosition = (e.offsetX / progressBar.offsetWidth) * audio.duration;
-            audio.currentTime = clickPosition;
-        });
+		progressBar.addEventListener('click', (e) => {
+			const clickPosition = (e.offsetX / progressBar.offsetWidth) * audio.duration;
+			audio.currentTime = clickPosition;
+		});
 
-        audio.addEventListener('ended', () => {
-            if (currentTrack < playlist.length - 1) {
-                loadTrack(currentTrack + 1);
-            }
-        });
+		audio.addEventListener('ended', () => {
+			if (currentTrack < playlist.length - 1) {
+				loadTrack(currentTrack + 1);
+			}
+		});
 
-        playlist.forEach((track, index) => {
-            const li = document.createElement('li');
-            li.classList.add('playlist-item');
-            li.textContent = track.name;
-            li.addEventListener('click', () => loadTrack(index));
-            playlistElement.appendChild(li);
-        });
+		playlist.forEach((track, index) => {
+			const li = document.createElement('li');
+			li.classList.add('playlist-item');
+			li.textContent = track.name;
+			li.addEventListener('click', () => loadTrack(index));
+			playlistElement.appendChild(li);
+		});
 
-        loadTrack(currentTrack);  // Start with the first track
-    </script>
+		loadTrack(currentTrack);  // Start with the first track
+	</script>
 </body>
 
 </html>
