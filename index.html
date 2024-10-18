@@ -54,6 +54,7 @@
 			border-radius: 4px;
 			margin-top: 20px;
 			position: relative;
+			cursor: pointer;
 		}
 
 		.progress {
@@ -101,8 +102,10 @@
 		<h1>Radio</h1>
 		<h2>Esther & Aviel</h2>
 		<div class="controls">
+			<span class="material-icons-outlined md-36" id="previous">fast_rewind</span>
 			<span class="material-icons-outlined md-36" id="play">play_circle_filled</span>
-			<span class="material-icons-outlined md-36" id="pause">pause_circle</span>
+			<span class="material-icons-outlined md-36" id="pause" style="display: none;">pause_circle_filled</span>
+			<span class="material-icons-outlined md-36" id="next">fast_forward</span>
 			<span class="material-icons-outlined md-36" id="download" onclick="downloadFile()">file_download</span>
 		</div>
 		<div class="progress-bar" id="progressBar">
@@ -122,6 +125,8 @@
 		const progressBar = document.getElementById('progressBar');
 		const progress = document.getElementById('progress');
 		const playlistElement = document.getElementById('playlist');
+		const previousButton = document.getElementById('previous');
+		const nextButton = document.getElementById('next');
 
 		const playlist = [
 			{ name: "C'est leur jour", file: "Cest leur jour.mp3" },
@@ -139,13 +144,27 @@
 		];
 
 		let currentTrack = 0;
+		let isPlaying = false;
+		let isDragging = false;
 
 		function loadTrack(trackIndex) {
 			currentTrack = trackIndex;
 			audio.src = playlist[trackIndex].file;
 			audio.load();
 			audio.play();
+			isPlaying = true;
+			updateButtons();
 			updatePlaylistDisplay();
+		}
+
+		function updateButtons() {
+			if (isPlaying) {
+				playButton.style.display = 'none';
+				pauseButton.style.display = 'inline';
+			} else {
+				playButton.style.display = 'inline';
+				pauseButton.style.display = 'none';
+			}
 		}
 
 		function updatePlaylistDisplay() {
@@ -156,9 +175,9 @@
 
 		function downloadFile() {
 			const hyperlink = document.createElement('a');
-			hyperlink.href = playlist[currentTrack].file;
+			hyperlink.href = 'Radio Esther & Aviel.mp3';
 			hyperlink.target = '_blank';
-			hyperlink.download = playlist[currentTrack].file;
+			hyperlink.download = 'Radio Esther & Aviel.mp3';
 
 			const mouseEvent = new MouseEvent('click', {
 				view: window,
@@ -171,29 +190,94 @@
 		}
 
 		playButton.addEventListener('click', () => {
-			audio.play();
+			if (!isPlaying) {
+				loadTrack(currentTrack);
+				isPlaying = true;
+				updateButtons();
+			}
 		});
 
 		pauseButton.addEventListener('click', () => {
 			audio.pause();
+			isPlaying = false;
+			updateButtons();
 		});
 
-		audio.addEventListener('timeupdate', () => {
-			const progressWidth = (audio.currentTime / audio.duration) * 100;
-			progress.style.width = progressWidth + '%';
+		previousButton.addEventListener('click', () => {
+			if (currentTrack > 0) {
+				loadTrack(currentTrack - 1);
+			}
 		});
 
-		progressBar.addEventListener('click', (e) => {
-			const clickPosition = (e.offsetX / progressBar.offsetWidth) * audio.duration;
-			audio.currentTime = clickPosition;
-		});
-
-		audio.addEventListener('ended', () => {
+		nextButton.addEventListener('click', () => {
 			if (currentTrack < playlist.length - 1) {
 				loadTrack(currentTrack + 1);
 			}
 		});
 
+		audio.addEventListener('timeupdate', () => {
+			if (!isDragging) {
+				const progressWidth = (audio.currentTime / audio.duration) * 100;
+				progress.style.width = progressWidth + '%';
+			}
+		});
+
+		audio.addEventListener('ended', () => {
+			if (currentTrack < playlist.length - 1) {
+				loadTrack(currentTrack + 1);
+			} else {
+				isPlaying = false; // Fin de la playlist
+				updateButtons();
+			}
+		});
+
+		// Gérer le glissement (slider) et les interactions tactiles
+		progressBar.addEventListener('mousedown', (e) => {
+			isDragging = true;
+			updateAudioTime(e);
+		});
+
+		progressBar.addEventListener('touchstart', (e) => {
+			isDragging = true;
+			updateAudioTime(e.touches[0]);
+		});
+
+		window.addEventListener('mousemove', (e) => {
+			if (isDragging) {
+				updateAudioTime(e);
+			}
+		});
+
+		window.addEventListener('touchmove', (e) => {
+			if (isDragging) {
+				updateAudioTime(e.touches[0]);
+			}
+		});
+
+		window.addEventListener('mouseup', () => {
+			if (isDragging) {
+				isDragging = false;
+				audio.play(); // Reprendre la lecture après le glissement
+			}
+		});
+
+		window.addEventListener('touchend', () => {
+			if (isDragging) {
+				isDragging = false;
+				audio.play(); // Reprendre la lecture après le glissement
+			}
+		});
+
+		function updateAudioTime(e) {
+			const rect = progressBar.getBoundingClientRect();
+			const offsetX = e.clientX - rect.left;
+			const clickPosition = (offsetX / progressBar.offsetWidth) * audio.duration;
+			audio.currentTime = clickPosition;
+			const progressWidth = (audio.currentTime / audio.duration) * 100;
+			progress.style.width = progressWidth + '%';
+		}
+
+		// Ajouter les éléments de la playlist dynamiquement
 		playlist.forEach((track, index) => {
 			const li = document.createElement('li');
 			li.classList.add('playlist-item');
@@ -201,8 +285,6 @@
 			li.addEventListener('click', () => loadTrack(index));
 			playlistElement.appendChild(li);
 		});
-
-		loadTrack(currentTrack);  // Start with the first track
 	</script>
 </body>
 
